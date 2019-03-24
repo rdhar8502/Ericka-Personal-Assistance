@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chat</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="static/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="static/style.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="static/bootstrap.min.js"></script>
+    <script src="static/jquery3.2.1.min.js"></script>
+  </head>
+  <body>
+    <h1>Regent Institute Of Science & Technology</h1>
+    <div class="chat">
+      <div class="card" style="height:500px">
+        <div class="card-header msg_head">
+							<div class="d-flex bd-highlight">
+								<div class="img_cont">
+									<img src="static/image.jpg" class="rounded-circle user_img">
+									<span class="online_icon"></span>
+								</div>
+								<div class="user_info">
+									<span>Chat with Ericka 2.0</span>
+									<p>A ChatBot</p>
+								</div>
+							</div>
+				</div>
+        <div class="card-body msg_card_body">
+          <div id="chatbox">
+            <p class="botText"><span>Hi {{ user }}! How can I help you?</span></p>
+          </div>
+        </div>
+        <div id="userInput" class="card-footer">
+            <div class="input-group">
+                <textarea name="msg" class="form-control type_msg" id="textInput" placeholder="Type your message..."></textarea>
+                <div class="input-group-append">
+                    <span class="input-group-text send_btn" id="buttonInput"><i class="fa fa-send"></i></span>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    <form action = "{{ url_for('Login') }}">
+      <button class="submit_btn" type="submit" style="left:45%">Logout</button>
+    </form>
+      <script>
+        function getBotResponse() {
+          var rawText = $("#textInput").val();
+          var userHtml = '<p class="userText"><span>' + rawText + '</span></p>';
+          $("#textInput").val("");
+          $("#chatbox").append(userHtml);
+          document.getElementById('userInput').scrollIntoView({block: 'start', behavior: 'smooth'});
+          $.get("/get", { msg: rawText }).done(function(data) {
+            var botHtml = '<p class="botText"><span>' + data + '</span></p>';
+            $("#chatbox").append(botHtml);
+            document.getElementById('userInput').scrollIntoView({block: 'start', behavior: 'smooth'});
+          });
+        }
+        $("#textInput").keypress(function(e) {
+            if(e.which == 13) {
+                getBotResponse();
+            }
+        });
+        $("#buttonInput").click(function() {
+          getBotResponse();
+        })
+      </script>
+    </div>
+  </body>
+</html>
