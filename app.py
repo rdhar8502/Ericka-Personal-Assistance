@@ -241,6 +241,8 @@ Bot = ChatBot(
     ]
 )
 
+Bot.set_trainer(ChatterBotCorpusTrainer)
+Bot.train("chatterbot.corpus.english")
 
 # ============ Starting Main Web Application using Python Flask =============
 
