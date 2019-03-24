@@ -4,6 +4,7 @@ from flask import Flask, render_template, request,redirect, url_for
 from chatterbot import ChatBot
 from chatterbot.trainers import ChatterBotCorpusTrainer, ListTrainer
 import mysql.connector
+import speech_recognition as sr
 import requests
 import re
 import webbrowser
@@ -21,7 +22,7 @@ def u():
     return userInputs[len(userInputs)-2]
 
 
-def voice(value):
+""" def voice(value):
     import pyttsx3
 
     def speak(value):
@@ -33,7 +34,7 @@ def voice(value):
         engine.say(value)
         engine.runAndWait()
 
-    speak(value)
+    speak(value) """
 
 """ def myCommand():
 
@@ -66,9 +67,9 @@ def call(user):
         from googleapiclient.discovery import build
 
         # Google API Key
-        my_api_key = "AIzaSyB7zr8Yz_VcuhVpQ3Kewcu3pNubsnG2sr4"
+        my_api_key = "your-google-API-key"
         # Custome Search Engine Key
-        my_cse_id = "006605598134151111667:b0g-wk3a2es"
+        my_cse_id = "your-cse-id"
 
         def google_search(search_term, api_key, cse_id, **kwargs):
 
@@ -105,7 +106,7 @@ def imgSearch(user):
 
     query = user.replace(' ','+')
 
-    response = requests.get(f"https://www.googleapis.com/customsearch/v1?key=AIzaSyB7zr8Yz_VcuhVpQ3Kewcu3pNubsnG2sr4&cx=006605598134151111667:pv6q65htwcw&q={user}") 
+    response = requests.get(f"https://www.googleapis.com/customsearch/v1?key=<google-image-api>&cx=cse-id&q={user}") 
         
     x = response.json()
 
@@ -121,7 +122,7 @@ def weather(user):
     try:
         def getWeather(city_name="Delhi"):
 
-            response = requests.get(f"http://api.openweathermap.org/data/2.5/weather?appid=1b4a48cb6a1c4342689c6436e48a1adf&q={city_name}") 
+            response = requests.get(f"http://api.openweathermap.org/data/2.5/weather?appid=<openweatherAPI>&q={city_name}") 
             
             x = response.json()
             
@@ -146,7 +147,7 @@ def getPlace(user):
     def rest(query):
         a = []
 
-        response = requests.get(f"https://maps.googleapis.com/maps/api/place/textsearch/json?query={query}&key=AIzaSyAfQeZUuGOH0_7YIzbmHX94aWVl4Xj363o") 
+        response = requests.get(f"https://maps.googleapis.com/maps/api/place/textsearch/json?query={query}&key=<google map api key>") 
         
         x = response.json()
         
@@ -212,8 +213,8 @@ def openFile(user):
 mydb = mysql.connector.connect(
     host = 'localhost',
     user = 'root',
-    passwd = '1234',
-    database = 'rist'
+    passwd = 'your password',
+    database = 'your database'
 )
 
 # -------- Object declare of MySql Database --------
@@ -378,7 +379,6 @@ def get_bot_response():
 
     else:
         s = str(Bot.get_response(userText))
-        voice(s)
         return s
 
 
