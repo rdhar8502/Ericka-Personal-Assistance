@@ -1,16 +1,16 @@
-
 # import Python Library
-from flask import Flask, render_template, request,redirect, url_for
+from flask import Flask, session, escape, render_template, request,redirect, url_for
 from chatterbot import ChatBot
 from chatterbot.trainers import ChatterBotCorpusTrainer, ListTrainer
 import mysql.connector
-import speech_recognition as sr
+#import speech_recognition as sr
 import requests
 import re
 import webbrowser
+import os
 
 
-#-------Flask App-------
+#-------Flask App -------
 app = Flask(__name__)
 
 userInputs = [None]
@@ -19,7 +19,7 @@ userInputs = [None]
 #============= Fuctions for Various of Query =========
 
 def u():
-    return userInputs[len(userInputs)-2]
+    return userInputs[len(userInputs)-2 ]
 
 
 """ def voice(value):
@@ -169,7 +169,7 @@ def getPlace(user):
 
 #------------- Google Map Direction Matrix API ------
 def Dir(user):
-    import request, json
+    import requests, json
     import place
 
     dirB = f"{place.place(user)[0]}/{place.place(user)[1]}"
@@ -213,8 +213,8 @@ def openFile(user):
 mydb = mysql.connector.connect(
     host = 'localhost',
     user = 'root',
-    passwd = 'your password',
-    database = 'your database'
+    passwd = '',
+    database = 'rist'
 )
 
 # -------- Object declare of MySql Database --------
@@ -241,40 +241,31 @@ Bot = ChatBot(
     ]
 )
 
-Bot.set_trainer(ChatterBotCorpusTrainer)
-Bot.train("chatterbot.corpus.english")
 
+# ============ Trainer ========================
+
+"""for file in os.listdir('./data/'):
+	Bot.set_trainer(ChatterBotCorpusTrainer)
+	Bot.train('./data/'+file)
+	print("Training completed")"""
+
+	
 # ============ Starting Main Web Application using Python Flask =============
 
 # ---------- Redirect to main IP ----------
 @app.route('/')
 def Home(message=None):
     if message==None:
-        return render_template('register.html')
+        return render_template('home.html')
     else:
         return render_template('register.html', message="signup succesfull")
 
-# ---------- Render Template (register.html) or Login Page ------
-@app.route('/', methods=['POST'])
-def Login():
-    val = (request.form['email'], request.form['password'])
-    sql = "select count(*) FROM `rist`.`register` WHERE `Email id` = %s AND `Password` = %s"
-    
-    cur.execute(sql, val)
-    res = cur.fetchone()
-
-    if res[0] == 1:
-        sql = "SELECT `Name`, `Email id`, `password` FROM `rist`.`register` WHERE `Email id` = %s AND `Password` = %s"
-        cur.execute(sql, val)
-        res = cur.fetchone()
-        
-        if request.form['email'] == res[1] and request.form['password'] == res[2]:
-            return render_template('index.html', user = res[0])
-        else:
-            return render_template('register.html', message = "Wroung user or Password")
-    else:
-        return render_template('register.html', message = 'Wroung user or Password')
-
+@app.route('/logged_in')
+def logged_in():
+	if session['logged_in'] == False:
+		return render_template('home.html')
+	else:
+		return render_template('index.html')
 
 # ------------- Signup Page for new users ----------
 
@@ -293,99 +284,148 @@ def success():
 
 @app.route('/signup', methods=['POST'])
 def signup():
-    val = (request.form['name'], request.form['email'], request.form['dob'], request.form['Gender'], request.form['password'])
-    sql = "INSERT INTO `rist`.`register` (`Name`, `Email id`, `Date of Birth`, `Gender`, `Password`) VALUES (%s, %s, %s, %s, %s)"
+	if request.form['name'] != '' and request.form['email'] != '' and request.form['dob'] != '' and request.form['Gender'] != '' and request.form['password'] != '':
+		val = (request.form['name'], request.form['email'], request.form['dob'], request.form['Gender'], request.form['password'])
+		sql = "INSERT INTO `rist`.`register` (`Name`, `Email id`, `Date of Birth`, `Gender`, `Password`) VALUES (%s, %s, %s, %s, %s)"
 
-    cur.execute(sql, val)
-    mydb.commit()
+		cur.execute(sql, val)
+		mydb.commit()
+		
+		return redirect(url_for('register'))
+	else:
+		return render_template('signup.html', message = 'Fill All Elements!')
 
-    return redirect(url_for('success'))
+
+@app.route('/aboutus')
+def aboutus():
+    return render_template('aboutus.html')
+
+@app.route('/contactus')
+def contactus():
+    return render_template('contactus.html')
+
+@app.route('/register')
+def register():
+    return render_template('register.html')
+
 
 # ------------ Main Bot Response Function ----------
 
 @app.route("/get")
 def get_bot_response():
 
-    userText = request.args.get('msg')
+	if session['logged_in'] == True:
+		userText = request.args.get('msg')
 
-    userInputs.append(userText)
+		userInputs.append(userText)
+		
+		# use token values
+		# Bot can give answer for GK or other questions That can't know bot
+		if 'yes you can' in userText.lower() or 'yes u can' in userText.lower() or 'Yes' in userText.lower():
+			return str(call(u()))
+
+		# Bot Search restaurent near location via google map api
+		elif 'restaurant' in userText.lower() or 'pizza hut' in userText.lower() or 'domino' in userText.lower() or 'kfc' in userText.lower() or 'McDonald' in userText.lower():
+			c = []
+			a = (getPlace(userText))
+			for i in a:
+				for j,k in i.items():
+					c.append(f"{j} : {k}<br>")
+			return str(''.join(c))
+		
+		# Bot Search Temple near location via google map api
+		elif 'temple' in userText.lower() or 'mandir' in userText.lower() or 'mondir' in userText.lower():
+			c = []
+			a = (getPlace(userText))
+			for i in a:
+				for j,k in i.items():
+					c.append(f"{j} : {k}<br>")
+			return str(''.join(c))
+
+
+		# Bot Search Shops near location via google map api
+		elif 'shop' in userText.lower().lower() or 'shoping' in userText.lower():
+			c = []
+			a = (getPlace(userText))
+			for i in a:
+				for j,k in i.items():
+					c.append(f"{j} : {k}<br>")
+			return str(''.join(c))
+
+
+		# Bot Search Hospitals near location via google map api
+		elif 'hospital' in userText.lower():
+			c = []
+			a = (getPlace(userText))
+			for i in a:
+				for j,k in i.items():
+					c.append(f"{j} : {k}<br>")
+			return str(''.join(c))
+
+		# Bot Search direction, Distance via google map api
+		elif 'direction' in userText.lower() or 'distance' in userText.lower():
+			return str(Dir(userText))
+
+
+		# Weather Report API
+		elif 'weather' in userText.lower() or 'temp' in userText.lower() or 'tempareture' in userText.lower():
+			return str(weather(userText))
+
+		elif 'image' in userText.lower() or 'img' in userText.lower() or 'photo' in userText.lower() or 'picture' in userText.lower() or 'pic' in userText.lower():
+			return str(imgSearch(userText))
+
+		elif 'today' in userText.lower():
+			userText = userText.replace("today", f"{x.strftime('%A')}")
+			return str(Bot.get_response(userText))
+
+		elif 'open website' in userText.lower():
+			reg_ex = re.search('open website (.+)', userText.lower())
+			if reg_ex:
+				domain = reg_ex.group(1)
+				url = 'https://www.' + domain
+				webbrowser.open(url)
+				return "Done!"
+			else:
+				pass
+
+		else:
+			s = str(Bot.get_response(userText))
+			return s
+	else:
+		return render_template('register.html', wid = '400px')
+		
+
+# ---------- Render Template (register.html) or Login Page ------
+@app.route('/login', methods=['POST'])
+def Login():
+	val = (request.form['email'], request.form['password'])
+	sql = "select count(*) FROM `rist`.`register` WHERE `Email id` = %s AND `Password` = %s"
     
-	# use token values
-    # Bot can give answer for GK or other questions That can't know bot
-    if 'yes you can' in userText.lower() or 'yes u can' in userText.lower() or 'Yes' in userText.lower():
-        return str(call(u()))
+	cur.execute(sql, val)
+	res = cur.fetchone()
 
-    # Bot Search restaurent near location via google map api
-    elif 'restaurant' in userText.lower() or 'pizza hut' in userText.lower() or 'domino' in userText.lower() or 'kfc' in userText.lower() or 'McDonald' in userText.lower():
-        c = []
-        a = (getPlace(userText))
-        for i in a:
-            for j,k in i.items():
-                c.append(f"{j} : {k}<br>")
-        return str(''.join(c))
-    
-    # Bot Search Temple near location via google map api
-    elif 'temple' in userText.lower() or 'mandir' in userText.lower() or 'mondir' in userText.lower():
-        c = []
-        a = (getPlace(userText))
-        for i in a:
-            for j,k in i.items():
-                c.append(f"{j} : {k}<br>")
-        return str(''.join(c))
+	if res[0] == 1:
+		sql = "SELECT `Name`, `Email id`, `password` FROM `rist`.`register` WHERE `Email id` = %s AND `Password` = %s"
+		cur.execute(sql, val)
+		res = cur.fetchone()
+        
+		if request.form['email'] == res[1] and request.form['password'] == res[2]:
+			session['logged_in'] = True
+			session['username'] = res[0]
+			return redirect(url_for('logged_in'))
+		else:
+		    return render_template('register.html', message = "Wroung user or Password")
+	else:
+		return render_template('register.html', message = 'Wroung user or Password')
 
 
-    # Bot Search Shops near location via google map api
-    elif 'shop' in userText.lower().lower() or 'shoping' in userText.lower():
-        c = []
-        a = (getPlace(userText))
-        for i in a:
-            for j,k in i.items():
-                c.append(f"{j} : {k}<br>")
-        return str(''.join(c))
+@app.route('/logout')
+def logout():
+	session['logged_in'] = False
+	return redirect(url_for('logged_in'))
+	
 
-
-    # Bot Search Hospitals near location via google map api
-    elif 'hospital' in userText.lower():
-        c = []
-        a = (getPlace(userText))
-        for i in a:
-            for j,k in i.items():
-                c.append(f"{j} : {k}<br>")
-        return str(''.join(c))
-
-    # Bot Search direction, Distance via google map api
-    elif 'direction' in userText.lower() or 'distance' in userText.lower():
-        return str(Dir(userText))
-
-
-    # Weather Report API
-    elif 'weather' in userText.lower() or 'temp' in userText.lower() or 'tempareture' in userText.lower():
-        return str(weather(userText))
-
-    elif 'image' in userText.lower() or 'img' in userText.lower() or 'photo' in userText.lower() or 'picture' in userText.lower() or 'pic' in userText.lower():
-        return str(imgSearch(userText))
-
-    elif 'today' in userText.lower():
-        userText = userText.replace("today", f"{x.strftime('%A')}")
-        return str(Bot.get_response(userText))
-
-    elif 'open website' in userText.lower():
-        reg_ex = re.search('open website (.+)', userText.lower())
-        if reg_ex:
-            domain = reg_ex.group(1)
-            url = 'https://www.' + domain
-            webbrowser.open(url)
-            return "Done!"
-        else:
-            pass
-
-    else:
-        s = str(Bot.get_response(userText))
-        return s
-
-
-
-app.secret_key = 'rdg'
+app.secret_key = 'rdj'
 
 
 # End of Flask
