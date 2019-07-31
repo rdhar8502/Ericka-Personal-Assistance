@@ -3,11 +3,12 @@
     <head>
         <title>signup</title>
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" type="text/css" href="static/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="static/style.css">
+        <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
     </head>
     <body>
-        <h1>Regent Institute Of Science & Technology</h1>
+        <h1>Ericka</h1>
+		
         <div class="card" style="height:'auto'"> 
             <div class="card-footer">
                 <form action="" method="POST">
@@ -24,6 +25,7 @@
                     </div><br /><br/><hr>
                     <h3>Password : </h3>
                     <input type="password" name="password" class="form-control type_msg" placeholder="********"><br /><hr />
+					<h1><font color="red">{{ message }}</font></h1>
                     <input type="submit" value="Submit" class="submit_btn"> 
                 </form>
             </div>

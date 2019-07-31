@@ -1,0 +1,242 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	    <meta name="description" content="">
+	    <meta name="author" content="">
+	    <link rel="icon" href="./bootstrap-4.0.0/favicon.ico">
+
+	    <title>Ericka : ChatBot</title>
+
+	    <!-- Bootstrap core CSS -->
+	    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+
+	    <!-- Custom styles for this template -->
+	    <link href="{{ url_for('static', filename='css/carousel.css') }}" rel="stylesheet">
+	</head>
+	<body>
+	<!-- Navbar -->
+    <header>
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="#">Ericka</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="#aboutus">About US</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="#contactus">Contact Us</a>
+            </li>
+			<li class="nav-item active">
+              <a class="nav-link" href="#documentation">Documentation</a>
+            </li>
+          </ul>
+		  <form class="form-inline my-2 my-lg-0" action="{{ url_for('register') }}">
+			  <button class="btn btn-primary my-2 my-sm-0" type="submit">Try It</button>
+		  </form>
+        </div>
+      </nav>
+    </header>
+	<!-- Navbar Closed -->
+    <main role="main">
+	<!-- Carousel -->
+      <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+          <li data-target="#myCarousel" data-slide-to="1"></li>
+          <li data-target="#myCarousel" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img class="first-slide" src="static/img/1.jpg" alt="First slide">
+            
+          </div>
+		  
+          <div class="carousel-item">
+            <img class="second-slide" src="static/img/2.jpg" alt="Second slide">
+            
+          </div>
+		  
+          <div class="carousel-item">
+            <img class="third-slide" src="static/img/3.jpg" alt="Third slide">
+            
+            </div>
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+
+		<!-- Carousel Closed -->
+      <!-- Marketing messaging and featurettes
+      ================================================== -->
+      <!-- Wrap the rest of the page in another container to center all the content. -->
+
+      <div class="container marketing">
+
+
+
+        <!-- START THE FEATURETTES -->
+
+        <div class="row featurette">
+          <div class="col-md-8">
+            <h2 class="featurette-heading" style="
+    margin-top: 8px;">Hey meet Ericka, <span class="text-muted">your new artificial intelligent BFF.</span></h2>
+              <p class="lead">A AI chatbot designed to entertain millions of people all over the world with her special Conversational abilities.<br/><br/>
+
+                            No need to install any specific application weather you are on  Android Ios or Windows a web based application which always there to entertain you.<br/><br/>
+                            In every conversation she learn new things and gives the better resolves.<br/><br/>
+
+                            Had any Query, Ask Erica { show example (What is the forcast of Delhi) }</p>
+          </div>
+        </div>
+		<!-- Documentation  -->
+        <hr id="documentation" class="featurette-divider">
+		
+		<div class="row featurette">
+			<div class="col-md-8">
+			  <p class="lead">To download the documentation part click here,
+			  <a href="ericka_documentation.pdf" download>Click Here</a> </p>
+			</div>
+		</div>
+		<!-- Documentation Closed -->
+		
+		<hr id="aboutus" class="featurette-divider">
+        <!-- /END THE FEATURETTES -->
+
+      </div><!-- /.container -->
+	  
+		<!-- About Us  -->
+		
+	  <div class="container marketing">
+
+
+        <!-- START THE FEATURETTES -->
+
+        <div class="row featurette" style="margin-top: 50px;" >
+          <div class="col-md-7">
+            <h2 class="featurette-heading">Shuvojit Chowdhury</h2>
+            <p class="lead">I am the front-end developer of the project . I have designed all the web-pages using Html, Css, BootStrap and JavaScript.</p>
+          </div>
+          <div class="col-md-5">
+            <img class="featurette-image img-fluid mx-auto" src="static/img/shuvojit.jpg" alt="Generic placeholder image">
+          </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+          <div class="col-md-7 order-md-2">
+            <h2 class="featurette-heading">Rahul Dhar</h2>
+            <p class="lead">I am the AI, back-end developer of the project . I have worked on how the AI ChatBot will work efficiently. I have done all the back end development using Flask and AI Chatbot using Python</p>
+          </div>
+          <div class="col-md-5 order-md-1">
+            <img class="featurette-image img-fluid mx-auto" src="static/img/rahul.png" alt="Generic placeholder image">
+          </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+          <div class="col-md-7">
+            <h2 class="featurette-heading">Samir Chandra Pramanik</h2>
+            <p class="lead">I am the content writer of the project . I have written all the contents on the AI ChatBot's Website.</p>
+          </div>
+          <div class="col-md-5">
+            <img class="featurette-image img-fluid mx-auto" src="static/img/samir.jpeg" alt="Generic placeholder image">
+          </div>
+        </div>
+
+          <hr class="featurette-divider">
+
+          <div class="row featurette">
+          <div class="col-md-7 order-md-2">
+            <h2 class="featurette-heading">Souvik Sen</h2>
+            <p class="lead">I am the conversation script writer of the project . I have trained the Ericka ChatBot using YML format.</p>
+          </div>
+          <div class="col-md-5 order-md-1">
+            <img class="featurette-image img-fluid mx-auto" src="static/img/souvik.png" alt="Generic placeholder image">
+          </div>
+        </div>
+
+        <hr id="contactus" class="featurette-divider">
+
+        <!-- /END THE FEATURETTES -->
+
+      </div><!-- /.container -->
+
+		<!-- About Us Closed -->
+
+	  
+		<!-- Contact Us -->
+	  <div  class="container marketing">
+		
+		<div class="container" style="margin-top: 40px;">
+		  <div class="col-md-6">
+		  <form action="/action_page.php">
+		  
+			<div class="form-group">
+			  <label for="name">Name :-</label>
+			  <input type="text" class="form-control" id="name" placeholder="Enter name" name="Name">
+			</div>
+			
+			<div class="form-group">
+			  <label for="Address">Address:</label>
+			  <input type="text" class="form-control" id="Address" placeholder="Enter address" name="Address">
+			</div>
+			
+			<div class="form-group">
+			  <label for="phno">Phone Number :</label>
+			  <input type="text" class="form-control" id="phno" placeholder="Name phone number" name="Name">
+			</div>
+			
+			<div class="form-group">
+			  <label for="email">Email:</label>
+			  <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+			</div>
+						
+			<div class="form-group">
+			  <label for="comment">Comment:</label>
+			  <textarea class="form-control" rows="5" id="comment" name="comment" id="comment" placeholder="Enter comments"></textarea>
+			</div>
+			
+			<button type="submit" class="btn btn-primary">Submit</button>
+		  </form>
+		  </div>
+		</div>
+		<hr class="featurette-divider">
+	</div>
+		<!-- Contact Us Closed -->
+      <!-- FOOTER -->
+	  
+	  
+      <footer class="container">
+        <p class="float-right"><a href="#">Back to top</a></p>
+        <p>&copy; 2017-2018 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+      </footer>
+    </main>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script src="{{ url_for('static', filename='js/holder.min.js') }}"></script>
+
+	</body>
+</html>

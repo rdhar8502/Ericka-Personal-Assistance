@@ -3,14 +3,14 @@
   <head>
     <title>Chat</title>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="static/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="static/style.css">
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="static/bootstrap.min.js"></script>
-    <script src="static/jquery3.2.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+	
+	<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/jquery3.2.1.min.js') }}"></script>
   </head>
   <body>
-    <h1>Regent Institute Of Science & Technology</h1>
+    <h1>Ericka</h1>
     <div class="chat">
       <div class="card" style="height:500px">
         <div class="card-header msg_head">
@@ -27,7 +27,7 @@
 				</div>
         <div class="card-body msg_card_body">
           <div id="chatbox">
-            <p class="botText"><span>Hi {{ user }}! How can I help you?</span></p>
+            <p class="botText"><span>Hi {{ session['username'] }}! How can I help you?</span></p>
           </div>
         </div>
         <div id="userInput" class="card-footer">
@@ -40,7 +40,7 @@
         </div>
       </div>
     </div>
-    <form action = "{{ url_for('Login') }}">
+    <form action = "/logout">
       <button class="submit_btn" type="submit" style="left:45%">Logout</button>
     </form>
       <script>
@@ -49,11 +49,11 @@
           var userHtml = '<p class="userText"><span>' + rawText + '</span></p>';
           $("#textInput").val("");
           $("#chatbox").append(userHtml);
-          document.getElementById('userInput').scrollIntoView({block: 'start', behavior: 'smooth'});
+          document.getElementById('userInput').scrollIntoView({block: 'end', behavior: 'smooth'});
           $.get("/get", { msg: rawText }).done(function(data) {
             var botHtml = '<p class="botText"><span>' + data + '</span></p>';
             $("#chatbox").append(botHtml);
-            document.getElementById('userInput').scrollIntoView({block: 'start', behavior: 'smooth'});
+            document.getElementById('userInput').scrollIntoView({block: 'end', behavior: 'smooth'});
           });
         }
         $("#textInput").keypress(function(e) {

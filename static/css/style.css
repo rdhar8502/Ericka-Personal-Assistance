@@ -1,0 +1,263 @@
+body {
+    height: 100%;
+    margin: 0;
+    background: #34495E;
+    background: -webkit-linear-gradient(to right, #91EAE4,  #34495E, #7F7FD5);
+    background: linear-gradient(to right, #34495E,  #91EAE4, #7F7FD5);
+}
+
+.login{
+    border-radius: 15px !important;
+    background-color:#191919 !important;
+    padding: 50px;
+    width: 300px;
+    margin: auto;
+    margin-top: 40px;
+	border: 3px solid #2ecc71;
+}
+
+.login h1{
+    color: antiquewhite;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.login input[type = "email"], .login input[type = "password"]{
+    border: 0;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid #3498db;
+    padding: 14px 10px;
+    width: 200px;
+    outline: none;
+    color: white;
+    border-radius: 25px;
+    transition: 0.25s;
+}
+
+.login input[type = "email"]:focus, .login input[type = "password"]:focus{
+    width: 280px;
+    border-color: #2ecc71;
+}
+
+.login .li{
+    border: 0;
+    background: none;
+    position: relative;
+    left: 16%;
+    float: left;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid #2ecc71;
+    padding: 14px 40px;
+    width: 100px;
+    outline: none;
+    color: white;
+    border-radius: 25px 0 0 25px;
+    transition: 0.25s;
+    cursor: pointer;
+}
+.login .sp{
+    border: 0;
+    background: none;
+    position: relative;
+    left: 17%;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid #2ecc71;
+    padding: 14px;
+    width: 100px;
+    outline: none;
+    color: white;
+    border-radius: 0 25px 25px 0;
+    transition: 0.25s;
+    cursor: pointer;
+}
+
+.login input[type = "submit"]:hover{
+    background: #2ecc71;
+}
+
+h1 {
+    color: white;
+    margin-bottom: 0;
+    margin-top: 0;
+    text-align: center;
+    font-size: 40px;
+}
+
+h3 {
+    color: white;
+    font-size: 25px;
+    margin-top: 3px;
+    text-align: left;
+}
+
+.card {
+    border-radius: 15px !important;
+    background-color: rgba(0,0,0,0.4) !important;
+    width: 50%;
+    margin: auto;
+    margin-top: 40px;
+	border: 3px solid #2ecc71;
+}
+
+.userText {
+    color: white;
+    font-family: monospace;
+    font-size: 17px;
+    text-align: right;
+    line-height: 30px;
+}
+
+.userText span {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 10px;
+    border-radius: 20px 0px 20px 20px;
+    background-color: #2ecc71;
+    padding: 10px;
+    position: relative;
+    display: inline-block;
+}
+
+.botText {
+    color: white;
+    font-family: monospace;
+    font-size: 17px;
+    text-align: left;
+    line-height: 30px;
+}
+
+.botText span {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 10px;
+    border-radius: 0px 20px 20px 20px;
+    background-color: #3498db;
+    padding: 10px;
+    position: relative;
+    display: inline-block;
+}
+
+
+
+.card-footer{
+    border-radius: 0 0 15px 15px !important;
+    border-top: 0 !important;
+}
+
+.send_btn{
+    border-radius: 0 15px 15px 0 !important;
+    background-color: rgba(0,0,0,0.3) !important;
+    border:0 !important;
+    color: white !important;
+    cursor: pointer;
+}
+
+.type_msg{
+    background-color: rgba(0,0,0,0.3) !important;
+    border:0 !important;
+    color:white !important;
+    height: 60px !important;
+    overflow-y: auto;
+}
+.type_msg:focus{
+    box-shadow:none !important;
+    outline:0px !important;
+}
+
+.card-header{
+    border-radius: 15px 15px 0 0 !important;
+    border-bottom: 0 !important;
+}
+
+.user_img{
+    height: 70px;
+    width: 70px;
+    border:1.5px solid #f5f6fa;
+
+}
+
+.gender{
+    text-align: left;
+    float: left;
+    position: relative;
+    
+}
+
+.gender-mf{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.online_icon{
+    position: absolute;
+    height: 15px;
+    width:15px;
+    background-color: #4cd137;
+    border-radius: 50%;
+    bottom: 0.2em;
+    right: 0.4em;
+    border:1.5px solid white;
+}
+
+.msg_head{
+    position: relative;
+}
+
+.img_cont{
+    position: relative;
+    height: 70px;
+    width: 70px;
+}
+
+.user_info{
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 15px;
+}
+.user_info span{
+    font-size: 20px;
+    color: white;
+}
+.user_info p{
+    font-size: 10px;
+    color: rgba(255,255,255,0.6);
+}
+
+.msg_card_body{
+    overflow-y: auto;
+}
+
+.form-control{
+    display:block;
+    width:100%;
+    height:calc(2.25rem + 2px);
+    padding:.375rem .75rem;
+}
+
+.container{
+    align-content: center;
+}
+
+.submit_btn{
+    border-radius: 10px!important;
+    background-color: rgba(0,0,0,0.3) !important;
+    border:0 !important;
+    color: white !important;
+    cursor: pointer;
+    width: 80px;
+    height: 40px;
+    margin: 20px;
+    text-align: center;
+    float: left;
+    position: relative;
+    left: 32%;
+}
+
+a{
+	text-decoration: None;
+}

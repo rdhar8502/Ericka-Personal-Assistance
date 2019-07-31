@@ -2,13 +2,13 @@
 <html>
 	<head>
 		<title>Login</title>
-		<link rel="stylesheet" type="text/css" href="static/style.css">
+		<link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
 	</head>
 	<body>
-		<h1>Regent Institute Of Science & Technology</h1>
+		<h1>Ericka</h1>
 		<h1><font color="red">{{ message }}</font></h1>
-		<div class="login">
-			<form action="" method="POST">
+		<div class="login"  style="width: {{ wid }}">
+			<form action="/login" method="POST">
 				<h1>Login</h1>
 				<input type="email" name="email" placeholder="Email id">
 				<input  type="password" name="password" placeholder="password">
