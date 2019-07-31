@@ -8,7 +8,7 @@ Flask : pip install flask
 
 Mysql connetor : pip install mysql-connector-python
 
-google api client : pip install google-api-client
+google api client : pip install --upgrade google-api-python-client
 
 for voice output : pip install pyttsx3
 
